@@ -1,0 +1,8 @@
+.comments-row .img-responsive-thumbnail
+{
+position: absolute;
+/* margin-left:20px; */
+width: 52px;
+height: 52px;
+left: 25px;
+}

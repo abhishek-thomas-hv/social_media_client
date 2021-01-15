@@ -1,25 +1,96 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useEffect,useState} from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import {useDispatch,useSelector} from 'react-redux'
+import {getPosts} from './actions/post'
+import {getUserId} from './actions/auth'
+
+
+import Home from './components/Home/Home';
+import Signup from './components/Authentication/Signup';
+import Wrapper from './components/Authentication/Wrapper';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const dispatch=useDispatch()
+  const store = useSelector(state => state.auth)
+
+  const [isLoading, setisLoading] = useState(true)
+
+  useEffect(() => {
+
+
+    setisLoading(true)
+    async function get()
+    {
+      
+      if(!store.isAuthenticated)
+      {
+        const result = await getUserId()
+        if(result.Token_Error)
+        {
+          setTimeout(() => {
+            setisLoading(false)
+          }, 1000);
+        }
+
+        else
+        {
+          setTimeout(() => {
+            dispatch({type:"AUTHENTICATED",payload:result.data.user_id.id})
+            setisLoading(false)
+          }, 1000)
+          
+        }
+       
+      }
+     else
+     {
+      setisLoading(false)
+     }
+
+    }
+
+    get()
+    return () => {
+      
+    }
+  },[store])
+
+  
+  if(isLoading)
+  {
+    return (
+      <div className="App">
+        
+        <div className='row' style={{"margin-top":"50vh","margin-right":"100px","margin-left":"100px"}}>
+
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+
+        </div>
+  
+      </div>
+    );
+  }
+
+  else
+  {
+    return (
+      <div className="App">
+  
+          {store.isAuthenticated?<Home/>:<Wrapper/>}
+      
+      </div>
+    );
+  }
 }
 
 export default App;

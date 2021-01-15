@@ -1,0 +1,17 @@
+.upper-padding
+{
+    padding-top:7rem;
+}
+
+
+.upper-padding-small
+{
+    padding-top:3rem;
+}
+
+
+.dropdown-content {
+    position: fixed;
+    height:200px !important;
+    top: 10% !important;
+  }
