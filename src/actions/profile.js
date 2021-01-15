@@ -22,11 +22,13 @@ export const editProfile = (details) => async (dispatch) =>
         const result = await editProfileApi(details)
         console.log(result.data)
         dispatch({type:"EDIT_PROFILE",payload:result.data})
+        return result.data
     }
 
     catch(e)
     {
-        console.log("ERROR",e)
+        console.log("EDIT_PROFILE_ERROR",e)
+        return {'EDIT_PROFILE_ERROR':'Error Editing Profile'}
     }
 }
 

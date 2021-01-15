@@ -28,7 +28,7 @@ export const addPost = (details) => async (dispatch) =>
     }
     catch(e){
         
-        return {"Creation_error":"There was an Error Adding your post"}
+        return {"POST_ERROR":"There was an Error Adding your post"}
     }
 }
 
@@ -44,7 +44,7 @@ export const editPost = (details) => async (dispatch) =>
     }
     catch(e){
         
-        return {"Updation_error":"There was an Error Editing your post 1"}
+        return {"POST_ERROR":"There was an Error Editing your post 1"}
     }
 }
 

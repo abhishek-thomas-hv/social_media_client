@@ -14,8 +14,12 @@ function Posts() {
     const postStore = useSelector(state => state.post)
 
     const postEdit = useSelector(state => state.editpost)
+    
+    const [isSending, setIsSending] = useState(false)
 
     const [fileError, setFileError] = useState('')
+
+    const [message, setMessage] = useState('')
 
     const [details, setDetails] = useState(
         {
@@ -31,6 +35,8 @@ function Posts() {
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.auth)
+
+    const loaderRef = useRef(null)
 
     useEffect(() => {
 
@@ -57,10 +63,9 @@ function Posts() {
 
 
     useEffect(() => {
+
         async function get() {
-
             await dispatch(getPosts())
-
         }
 
         get()
@@ -101,6 +106,21 @@ function Posts() {
         fileInput.current.value = ""
     }
 
+    useEffect(() => {
+        if(isSending)
+        {
+            loaderRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "start"
+    
+              });
+        }
+        return () => {
+            
+        }
+    }, [isSending])
+
     const handleSubmit = async (e) => {
 
         e.preventDefault()
@@ -110,16 +130,87 @@ function Posts() {
             setFileError('Please Select Atleast One File')
             return
         }
+
         setFileError('')
+        
+
+        setIsSending(true)
+
         if (postEdit) {
-            const result = await dispatch(editPost(details))
-            clear()
+
+            setTimeout(async () => {
+
+
+                const result = await dispatch(editPost(details))
+                clear()
+                setIsSending(false)
+                formRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "start"
+        
+                  });
+                if(result.POST_ERROR)
+                {
+                    setMessage('There was an error Editing Post')
+
+                    setTimeout(() => {
+
+                        setMessage('')
+                        
+                    }, 3000);
+                }
+
+                else
+                {
+                    setMessage('Post Successfully Edited')
+
+                    setTimeout(() => {
+
+                        setMessage('')
+                        
+                    }, 3000);
+                }
+                
+            }, 1000);
         }
 
         else {
-            details.date = new Date()
-            const result = await dispatch(addPost(details))
-            clear()
+
+            setTimeout(async () => {
+
+                details.date = new Date()
+                const result = await dispatch(addPost(details))
+                clear()
+                setIsSending(false)
+                formRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "start"
+        
+                  });
+                if(result.POST_ERROR)
+                {
+                    setMessage('There was an error Adding Post')
+                    setTimeout(() => {
+
+                        setMessage('')
+                        
+                    }, 3000);
+                }
+
+                else
+                {
+                    setMessage('Post Successfully Added')
+
+                    setTimeout(() => {
+
+                        setMessage('')
+                        
+                    }, 3000);
+                }
+                
+            }, 1000);
         }
 
     }
@@ -257,6 +348,29 @@ function Posts() {
                         </div>
 
                     </div>
+
+                    
+     
+                    {isSending ? (
+                      <div class='row' ref={loaderRef}>
+                            <div class="bouncing center col s4 offset-s4">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                        </div>
+                      </div>
+                      
+                    )
+                    :''}
+
+                    { message && (
+                        <div className='container grey lighten-4 z-depth-2' style={{"padding":'5px 10px'}}>
+                            <p style={{"font-size":"17px"}}><b>{message}</b></p>
+                        </div>
+                    )
+
+                    }
 
 
 

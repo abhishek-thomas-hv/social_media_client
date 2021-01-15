@@ -4,7 +4,7 @@ import { useStore } from 'react-redux'
 import {useDispatch,useSelector} from 'react-redux'
 import materialize from 'materialize-css';
 import {editProfile} from '../../../../actions/profile'
-
+import './styles.css'
 function Editprofile() {
 
     const profileStore = useSelector(state=>state.profile)
@@ -24,6 +24,10 @@ function Editprofile() {
     const otherRef = useRef(null)
     const maleRef = useRef(null)
     const femaleRef = useRef(null)
+    const loaderRef = useRef(null)
+
+    const [isSending, setIsSending] = useState(false)
+    const [message, setMessage] = useState('')
 
     const dob = useRef(profileStore.dateOfBirth)
     useEffect(() => {
@@ -33,12 +37,12 @@ function Editprofile() {
             container: "html",
             onSelect: function(date) {
                 setDetails({...details,dateOfBirth:dob.current.value})
-                console.log("VERYHMM",details)
             },
             minDate: new Date(1950,1,1),
             maxDate: new Date(2015,1,1),
             yearRange:[1970,2015],
-            autoClose: true
+            autoClose: true,
+            defaultDate:new Date(profileStore.dateOfBirth)
           });
           
         
@@ -78,12 +82,65 @@ function Editprofile() {
         }
     },[])
 
+    useEffect(() => {
+        if(isSending)
+        {
+            loaderRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "start"
+    
+              });
+        }
+        return () => {
+            
+        }
+    }, [isSending])
+
     const handleSubmit = async (e) =>
     {
         e.preventDefault()
+
+        setIsSending(true)
+
         if(dob.current.value)
         details.dateOfBirth = dob.current.value
-         await dispatch(editProfile(details))
+        console.log("YOWTF")
+
+        setTimeout(async () => {
+
+            const result = await dispatch(editProfile(details))
+            setIsSending(false)
+            // formRef.current.scrollIntoView({
+            //     behavior: "smooth",
+            //     block: "nearest",
+            //     inline: "start"
+    
+            //   });
+            if(result.EDIT_PROFILE_ERROR)
+            {
+                setMessage('There was an error Editing Profile')
+
+                setTimeout(() => {
+
+                    setMessage('')
+                    
+                }, 3000);
+            }
+
+            else
+            {
+                setMessage('Profile Successfully Edited')
+
+                setTimeout(() => {
+
+                    setMessage('')
+                    
+                }, 3000);
+            }
+            
+        }, 1500);
+
     }
 
     return (
@@ -186,7 +243,36 @@ function Editprofile() {
                     
                 </div>
 
-                <button type="submit" className='btn btn-medium indigo hoverable' style={{'margin-top':"15px"}}>Edit Profile</button>
+                <div class='row'>
+                    <button type="submit" className='btn btn-medium indigo hoverable' style={{'margin-top':"15px"}}>Edit Profile</button>
+                </div>
+
+                {isSending ? (
+                      <div class='row' ref={loaderRef} >
+
+                                    {/* <div class="square center col s4 offset-s4">
+                                        <div></div>
+                                        <div></div>
+                                    </div> */}
+
+                            <div class="bouncing center col s4 offset-s4">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                        </div>
+                      </div>
+                      
+                    )
+                    :''}
+
+                    { message && (
+                        <div className='container center grey lighten-4 z-depth-2' style={{"padding":'5px 10px',"margin-top":'25px'}}>
+                            <p style={{"font-size":"17px"}}><b>{message}</b></p>
+                        </div>
+                    )
+
+                    }
                  
 
            </form>

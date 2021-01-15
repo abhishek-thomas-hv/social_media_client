@@ -49,7 +49,7 @@ function Home() {
                     <div class="navbar-fixed grey darken-4">
                         <nav class="grey darken-4">
                             <div class="nav-wrapper grey darken-4 container">
-                                <a href="#!" class="brand-logo center" ><span style={{"font-size":"25px"}} class="material-icons">work</span></a>
+                                <a href="#" class="brand-logo center" ><span style={{"font-size":"25px"}} class="material-icons">work</span></a>
                                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                                 <ul class="left hide-on-med-and-down">
                                     <li className="hoverlist">

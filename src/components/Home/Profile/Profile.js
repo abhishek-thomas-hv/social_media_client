@@ -19,7 +19,7 @@ function Profile() {
         return () => {
             
         }
-    }, [])
+    },)
 
     useEffect(() => {
 
