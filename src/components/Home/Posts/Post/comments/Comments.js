@@ -3,6 +3,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import { addComments,addLike } from '../../../../../actions/post'
 import moment from 'moment'
 import './styles.css'
+import PropTypes from 'prop-types';
 
 function Comments({postId,comments}) {
 
@@ -119,5 +120,18 @@ function Comments({postId,comments}) {
         </div>
     )
 }
+
+Comments.propTypes = {
+    
+     postId:PropTypes.string,
+     comments: PropTypes.arrayOf(PropTypes.shape({
+        comments: PropTypes.string,
+        date: PropTypes.string,
+        user:PropTypes.string,
+        userProfilePicture:PropTypes.string
+      })),
+    
+  }
+
 
 export default Comments

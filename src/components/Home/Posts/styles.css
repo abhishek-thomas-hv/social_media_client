@@ -58,3 +58,8 @@
 100%{transform:translateY(-50px)}
 
 }
+
+.hover-image:hover
+{
+  opacity:0.2
+}

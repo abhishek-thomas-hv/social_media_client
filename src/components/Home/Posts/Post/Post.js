@@ -1,11 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import defaultpost from '../../../../images/defaultpost.jpg';
+import React, { useState, useEffect ,useRef} from 'react'
 import Comments from './comments/Comments'
 import { addLike, deletePost, removeLike } from '../../../../actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 import materialize from 'materialize-css';
 import './styles.css'
+import { Carousel } from 'react-bootstrap';
+import { motion } from "framer-motion"
+import PropTypes from 'prop-types';
+
+const commentsVariants ={
+    hidden:
+    {
+      y:"-10vw",
+      opacity:0
+    },
+    visible:{
+      y:0,
+      opacity:1,
+      transition:{
+        type:"spring",
+        delay:0.2
+      }
+    },
+  }
 
 function Post({ post, formRef }) {
     
@@ -14,6 +32,8 @@ function Post({ post, formRef }) {
     const [comments, setComments] = useState(false)
     const store = useSelector(state => state.auth)
     const postEdit = useSelector(state => state.editpost)
+
+    const commentsRef = useRef(null)
 
     const [liked, setliked] = useState(null)
 
@@ -46,8 +66,8 @@ function Post({ post, formRef }) {
     useEffect(() => {
         var elems = document.querySelectorAll('.carousel');
         var instances = materialize.Carousel.init(elems, {
-            // fullWidth:true,
-            numVisible: 1
+            fullWidth:true,
+            numVisible: 5
         })
 
         return () => {
@@ -67,13 +87,47 @@ function Post({ post, formRef }) {
         }
 
 
+
         return () => {
 
         }
     })
 
+    useEffect(() => {
+
+        if(comments)
+        {
+            var element = commentsRef.current;
+        var headerOffset = 0;
+        var elementPosition = element.getBoundingClientRect().top;
+        var offsetPosition = elementPosition - headerOffset;
+    
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+        }
+
+        else
+        {
+            var element = commentsRef.current;
+        var headerOffset = 600;
+        var elementPosition = element.getBoundingClientRect().top;
+        var offsetPosition = elementPosition - headerOffset;
+    
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+        }
+        
+     }, [comments]);
+
+
+
     return (
         <div>
+
 
             <div class="row" key={post.id}>
 
@@ -90,8 +144,9 @@ function Post({ post, formRef }) {
                             
                         <div class="card-image">
                          
-                            {/* <img src="images/sample-1.jpg" /> */}
-                            {post.images.length > 0 && <div class="carousel">
+                            {post.images.length > 0 && 
+                            
+                            <div class="carousel">
                                 {post.images.map((image, id) => {
                                     return (
                                         <a class="carousel-item" href={`#${id}`}><img src={image} class="" /></a>
@@ -99,8 +154,12 @@ function Post({ post, formRef }) {
                                 }
                                 )
                                 }
+                                
 
-                            </div>}
+                            </div>
+                            
+                            }
+                            
                             {post.uid === store.uid && (<><a class="btn-floating halfway-fab  indigo"
                             onClick={() => { handleEdit() }}><i class="material-icons">edit</i></a>
                             <a class="btn-floating halfway-fab  red"
@@ -151,7 +210,10 @@ function Post({ post, formRef }) {
                                          <div className='col l6'>
 
                                             <a class={`btn-floating ${comments?'red darken-2':'indigo'} right`}
-                                                onClick={() => { setComments(!comments) }}><i class="material-icons">comment</i></a>
+                                                onClick={() => { 
+                                                    setComments(!comments)
+                                                    
+                                                     }}><i class="material-icons">comment</i></a>
 
                                             </div>
 
@@ -165,8 +227,13 @@ function Post({ post, formRef }) {
                             </div>
 
     
-
-                        {comments &&<div className='row'> <Comments postId={post._id} comments={post.comments}></Comments></div>}
+                        <div ref={commentsRef} >
+                        {comments &&<motion.div className='row transparent'
+                        variants={commentsVariants}
+                        animate="visible"
+                        initial="hidden">
+                             <Comments postId={post._id} comments={post.comments}></Comments></motion.div>}
+                             </div>
 
 
                         </div>
@@ -183,5 +250,28 @@ function Post({ post, formRef }) {
         </div>
     )
 }
+
+Post.propTypes = {
+    formRef: PropTypes.oneOfType([
+        PropTypes.func, 
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    post: PropTypes.shape({
+        _id:PropTypes.string,
+        comments:PropTypes.array,
+        date:PropTypes.string,
+        description:PropTypes.string,
+        images:PropTypes.array,
+        likeCount:PropTypes.number,
+        likedUsers:PropTypes.array,
+        tags:PropTypes.array,
+        title:PropTypes.string,
+        uid:PropTypes.string,
+        user:PropTypes.string,
+        userProfilePicture:PropTypes.string
+      }),
+    
+  }
+
 
 export default Post

@@ -7,7 +7,65 @@ import { addPost, editPost } from '../../../actions/post'
 import { getPosts } from '../../../actions/post'
 import Post from './Post/Post'
 import { motion } from "framer-motion"
+import PropTypes from 'prop-types';
 
+const imageVariant = {
+    hover:{
+      scale:1.2,
+      textShadow:"0px 0px 8px rgb(255,255,255)",
+      boxShadow:"0px 0px 8px rgb(255,255,255)",
+      transition:{
+        yoyo:Infinity,
+        duration:0.3
+      }
+     }
+  }
+
+  
+const butVaraints = {
+    hover:{
+      scale:1.2,
+      textShadow:"0px 0px 8px rgb(255,255,255)",
+      boxShadow:"0px 0px 8px rgb(255,255,255)",
+      transition:{
+        yoyo:Infinity,
+        duration:0.3
+      }
+     }
+  }
+
+  const formVariants ={
+    hidden:
+    {
+      x:"-15vw",
+      opacity:0
+    },
+    visible:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:"spring",
+        delay:0.5
+      }
+    },
+  }
+
+  const postsVariants ={
+    hidden:
+    {
+      x:"-25vw",
+      opacity:0
+    },
+    visible:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:"spring",
+        delay:0.2
+      }
+    },
+  }
+  
 function Posts() {
 
 
@@ -237,14 +295,6 @@ function Posts() {
 
         }
 
-
-
-        // var result = images.map(function (a) { return a.base64 });
-        // const dummy = [...newImages]
-        // console.log(dummy,newImages)
-        // await setDetails({...details, images:dummy })
-        // await setDetails({...details,images:newImages})
-        // console.log("YOWT",details,newImages)
     }
 
 
@@ -255,9 +305,15 @@ function Posts() {
     return (
         <>
 
-            <div className="row">
+            <div className="row" 
+              >
 
-                <form ref={formRef} className="col s10 offset-s1 l4 offset-l1 m6 offset-m3 center white" onSubmit={(e) => handleSubmit(e)} style={{ "padding": "30px" }}>
+                <motion.form ref={formRef} className="col s10 offset-s1 l4 offset-l1 m6 offset-m3 center white" 
+                onSubmit={(e) => handleSubmit(e)} style={{ "padding": "30px" }}
+                variants={formVariants}
+              animate="visible"
+              initial="hidden"
+              >
 
                     <h6><u>{postEdit ? "Edit Post" : "Add Post"}</u></h6>
 
@@ -301,9 +357,11 @@ function Posts() {
                         <div className='col s12'>
                             <div className="image-upload ">
                                 <label for="file-input">
-                                    <span className="material-icons pointer indigo-text text-darken-1" style={{ 'font-size': "5rem" }}>
+                                    <motion.span className="material-icons pointer indigo-text text-darken-1" style={{ 'font-size': "5rem" }}
+                                    variants={imageVariant}
+                                    whileHover="hover">
                                     add_photo_alternate
-                                    </span>
+                                    </motion.span>
                                 </label>
                                 <input id='file-input' type="file" className="" multiple={true} required={false} ref={fileInput}
                                 onChange={(e) => handleFileSubmit(e)}
@@ -330,7 +388,9 @@ function Posts() {
                                         }
 
                                     }}
-                                ><img style={{ "margin": "5px" }} width={100} height={100} src={image} class="img-responsive" /></a>
+                                ><img style={{ "margin": "5px" }} width={100} height={100} src={image} class="img-responsive hover-image" />
+                                
+                                </a>
                             )
                         }
                         )
@@ -375,7 +435,7 @@ function Posts() {
 
 
 
-                </form>
+                </motion.form>
 
 
                 {postStore.length === 0 ? (
@@ -396,11 +456,14 @@ function Posts() {
                     </div>
 
                 ) :
-                    <div className="col l5 offset-l1 transparent hide-on-med-and-down" style={{ "padding": '0px' }}>
+                    <motion.div className="col l5 offset-l1 transparent hide-on-med-and-down" style={{ "padding": '0px' }}
+                    variants={postsVariants}
+                    animate="visible"
+                    initial="hidden">
                         {postStore.map(post =>
                             <Post post={post} formRef={formRef}></Post>
                         )}
-                    </div>}
+                    </motion.div>}
                     
 
 
@@ -418,5 +481,8 @@ function Posts() {
         </>
     )
 }
+
+
+
 
 export default Posts

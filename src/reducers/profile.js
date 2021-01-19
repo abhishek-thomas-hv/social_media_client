@@ -1,5 +1,4 @@
-const initialState = 
-{
+const initialState = {
 
 }
 
@@ -15,7 +14,6 @@ const ProfileReducer = (profile=initialState,action) =>
 
         default:
            return profile
-        
     }
 }
 

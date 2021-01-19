@@ -5,6 +5,9 @@ import {useDispatch,useSelector} from 'react-redux'
 import materialize from 'materialize-css';
 import {editProfile} from '../../../../actions/profile'
 import './styles.css'
+import { motion } from "framer-motion"
+
+
 function Editprofile() {
 
     const profileStore = useSelector(state=>state.profile)
@@ -144,7 +147,7 @@ function Editprofile() {
     }
 
     return (
-        <div className='row'>
+        <div className='row'  >
            <form className=' col s10 offset-s1 l12 center' onSubmit={(e) => handleSubmit(e)} style={{ "padding": "30px" }}>
 
                <h6 style={{ "margin-bottom": "30px" }} className='center'><u>Edit Profile</u> </h6>

@@ -7,6 +7,7 @@ import Posts from './Posts/Posts';
 import './styles.css'
 import Profile from './Profile/Profile'
 import Friends from './Friends/Friends'
+import {motion} from 'framer-motion'
 
 import {
     BrowserRouter as Router,
@@ -15,17 +16,17 @@ import {
     Link
 } from "react-router-dom";
 
+
+
 function Home() {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        var elems = document.querySelectorAll('.sidenav');
-        materialize.Sidenav.init(elems);
         return () => {
 
         }
-    }, [])
+    },[])
 
     useEffect(() => {
 
@@ -41,17 +42,27 @@ function Home() {
 
     } 
 
+    const openNav = () => {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+      
+
+      const closeNav = () => {
+        document.getElementById("mySidenav").style.width = "0";
+      } 
+
     return (
         <div>
 
             <Router>
                 <div>
-                    <div class="navbar-fixed grey darken-4">
+                    <div class="navbar-fixed grey darken-4"
+                        >
                         <nav class="grey darken-4">
                             <div class="nav-wrapper grey darken-4 container">
                                 <a href="#" class="brand-logo center" ><span style={{"font-size":"25px"}} class="material-icons">work</span></a>
-                                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                                <ul class="left hide-on-med-and-down">
+                                <a href="#" data-target="mobile-demo" class="sidenav-trigger" onClick={() => openNav()}><i class="material-icons">menu</i></a>
+                                <ul className="left hide-on-med-and-down">
                                     <li className="hoverlist">
                                         <Link to="/">Home</Link>
                                     </li>
@@ -71,19 +82,17 @@ function Home() {
                                 </ul>
                     
                             </div>
-                        </nav>
 
-                        <ul className="sidenav grey lighten-2" id="mobile-demo">
-                            <li className="white-text">
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/profile">View Profile</Link>
-                            </li>
-                            <li>
-                                <Link to="/friends">View Friends</Link>
-                            </li>
-                        </ul>
+
+                            <div id="mySidenav" class="my-sidenav">
+                                <a href="#" class="closebtn" onClick={() => closeNav()}>&times;</a>
+                                <Link to="/" style={{"font-size":"20px"}}>Home</Link>
+                                <Link to="/profile"  style={{"font-size":"20px"}}>View Profile</Link>
+                                <Link to="/friends"  style={{"font-size":"20px"}}>View Friends</Link>
+                            </div>
+                            
+                        
+                        </nav>
 
                     </div>
 

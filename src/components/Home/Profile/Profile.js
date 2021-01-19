@@ -5,6 +5,41 @@ import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfile } from '../../../actions/profile'
 import EditProfile from './Editprofile/Editprofile'
+import { motion } from "framer-motion"
+
+const profileVariant ={
+    hidden:
+    {
+      x:"-15vw",
+      opacity:0
+    },
+    visible:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:"spring",
+        delay:0.2
+      }
+    },
+  }
+
+  const editProfileVariant ={
+    hidden:
+    {
+      x:"-15vw",
+      opacity:0
+    },
+    visible:{
+      x:0,
+      opacity:1,
+      transition:{
+        type:"spring",
+        delay:0.2
+      }
+    },
+  }
+
+
 
 function Profile() {
 
@@ -35,10 +70,13 @@ function Profile() {
 
     return (
         <>
-            {profileStore.firstName && <div className='row profile-card'>
+            {profileStore.firstName && 
+            <div className='row profile-card'>
                 <div className={`col s10 offset-s1 ${editProfile?'l4 offset-l1':'l6 offset-l3'} transparent`}>
 
-                <div class="card">
+                <motion.div class="card" variants={profileVariant}
+              animate="visible"
+              initial="hidden" >
                     <div class="card-image">
                         <img src={profileStore.profilePicture} className='materialboxed'/>
                         <a class="btn-floating halfway-fab indigo"
@@ -57,15 +95,17 @@ function Profile() {
                         <p>{profileStore.mobileNumber}</p>
                         <p>{new Date(profileStore.dateOfBirth).toDateString()}</p>
                     </div>
-                </div>
+                </motion.div>
 
                 </div>
 
             
 
-                {editProfile && (<div className='col s10 offset-s1 l5 offset-l1 white hide-on-med-and-down'>
+                {editProfile && (<motion.div className='col s10 offset-s1 l5 offset-l1 white hide-on-med-and-down' variants={editProfileVariant}
+                    animate="visible"
+                    initial="hidden">
                     <EditProfile ></EditProfile>
-                </div>)}
+                </motion.div>)}
 
             </div>}
 

@@ -4,7 +4,7 @@ import './styles.css'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import {getProfile,addFriend,acceptRequest,declineRequest} from '../../../actions/profile'
-
+import PropTypes from 'prop-types';
 
 function FriendsChild({ option }) {
 
@@ -39,6 +39,14 @@ function FriendsChild({ option }) {
 
     }
 
+    useEffect(() => {
+        var elems = document.querySelectorAll('.modal');
+        materialize.Modal.init(elems)
+        return () => {
+            
+        }
+    }, [])
+
 
     switch (option) {
 
@@ -48,13 +56,13 @@ function FriendsChild({ option }) {
 
 
                     {friends && friends.length > 0 ?
-
+                    
                         <ul class="collection">
 
                             {
                                 friends.map(
 
-                                    friend =>
+                                    (friend,id) =>
 
                                         (
                                             <>
@@ -62,9 +70,8 @@ function FriendsChild({ option }) {
                                                     <img src={friend.userProfilePicture} style={{"margin-top":"10px"}} alt="" class="circle" />
                                                     <h5 class="">{friend.user} </h5>
                                                     <p>{friend.mobileNumber} <br></br>
-                                                       {/* {friend.mobileNumber} */}
                                                         </p>
-                                                    <a href="#!" class="btn-small indigo secondary-content"><i style={{"font-size":"30px"}} class="material-icons right ">account_circle</i>Info</a>
+                                                    <a href="#"class="btn-floating indigo modal-trigger secondary-content"><i style={{"font-size":"30px"}} class="material-icons right ">account_circle</i>Info</a>
                                                 </li>
                                             </>
 
@@ -199,4 +206,10 @@ function FriendsChild({ option }) {
     }
 }
 
+
+FriendsChild.propTypes = {
+    name: PropTypes.string
+  }
+
+  
 export default FriendsChild

@@ -37,7 +37,7 @@ export const addFriend = (details) => async (dispatch) =>
     
     try
     {
-        const result = await addFriendApi(details)
+        await addFriendApi(details)
         // dispatch({type:"EDIT_PROFILE",payload:result.data})
         dispatch(getUsers())
     }
