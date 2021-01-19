@@ -60,9 +60,9 @@ function FriendsChild({ option }) {
         case 'list':
             return (
                 <motion.div className='' style={{ 'padding': "0px 20px" }}
-                variants={friendChildVariants}
-                animate="visible"
-                initial="hidden">
+                    variants={friendChildVariants}
+                    animate="visible"
+                    initial="hidden">
 
 
                     {friends && friends.length > 0 ?
@@ -114,9 +114,9 @@ function FriendsChild({ option }) {
         case 'requests':
             return (
                 <motion.div className='' style={{ 'padding': "0px 20px" }}
-                variants={friendChildVariants}
-                animate="visible"
-                initial="hidden">
+                    variants={friendChildVariants}
+                    animate="visible"
+                    initial="hidden">
 
 
                     {friendRequests && friendRequests.length > 0 ?
@@ -163,11 +163,10 @@ function FriendsChild({ option }) {
 
         case 'newFriends':
             return (
-
                 <motion.div className='' style={{ 'padding': "0px 20px" }}
-                variants={friendChildVariants}
-                animate="visible"
-                initial="hidden">
+                    variants={friendChildVariants}
+                    animate="visible"
+                    initial="hidden">
 
 
                     {users && users.length > 0 ?

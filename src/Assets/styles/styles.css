@@ -136,7 +136,18 @@ body {
   animation: animation-profile 0.5s linear 0s 1;
 }
 
+.animate-profile-back
+{
+  animation: animation-profile-back 0.5s linear 0s 1;
+}
+
+
 @keyframes animation-profile {
+  0%{opacity:0}
+  100% {opacity: 1;}
+}
+
+@keyframes animation-profile-back {
   0%{opacity:0}
   100% {opacity: 1;}
 }

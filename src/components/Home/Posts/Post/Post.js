@@ -1,153 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
-import Comments from './comments/Comments'
-import { addLike, deletePost, removeLike } from '../../../../actions/post'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { motion, AnimatePresence } from "framer-motion"
 import moment from 'moment'
-import materialize from 'materialize-css';
-import '../../../../Assets/styles/styles.css'
-import { motion, AnimatePresence  } from "framer-motion"
-import PropTypes from 'prop-types';
+import CommentsContainer from './comments/CommentsContainer'
 
-const commentsVariants = {
-    hidden:
-    {
-        y: "-10vw",
-        opacity: 0
-    },
-    visible: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            type: "spring",
-            delay: 0.2
-        }
-    },
-    exit:
-    {
-        opacity:0,
-        transition:
-        {
-            type:'spring',
-            duration:1
-        }
-    }
-}
-
-function Post({ post, formRef }) {
-
-
-    const dispatch = useDispatch()
-    const [comments, setComments] = useState(false)
-    const store = useSelector(state => state.auth)
-
-    const commentsRef = useRef(null)
-    const postRef  = useRef(null)
-
-    const [counter, setCounter] = useState(0)
-
-    const [liked, setliked] = useState(null)
-
-    const handleLike = async () => {
-        const details = {
-            _id: post._id,
-        }
-        await dispatch(addLike(details))
-    }
-    const handleDislike = async () => {
-        const details = {
-            _id: post._id,
-        }
-        await dispatch(removeLike(details))
-    }
-
-
-    const handleEdit = () => {
-        dispatch({ type: "ADD_EDIT_POST_ID", payload: post._id })
-        formRef.current.scrollIntoView({
-            behavior: "smooth",
-        });
-    }
-
-    const handleDelete = () => {
-        dispatch(deletePost(post._id))
-        dispatch({ type: "REMOVE_EDIT_POST_ID" })
-    }
-
-    useEffect(() => {
-        var elems = document.querySelectorAll('.carousel');
-        materialize.Carousel.init(elems, {
-            fullWidth: true,
-            numVisible: 5
-        })
-
-        return () => {
-
-        }
-    })
-
-
-    useEffect(() => {
-
-        if (post.likedUsers.includes(store.uid)) {
-            setliked(true)
-        }
-
-        else {
-            setliked(false)
-        }
-
-
-
-        return () => {
-
-        }
-    },[post.likedUsers])
-
-    useEffect(() => {
-
-
-        var timeout =null
-
-        if(counter===0)
-        {
-            return
-        }
-
-        if (comments) {
-            commentsRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-                inline: "start"
-
-            });
-        }
-
-        else {
-
-            timeout = setTimeout(() => {
-                postRef.current.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                    inline: "start"
-    
-                });
-                
-            }, 600);
-        }
-
-        return () =>
-        {
-            clearTimeout(timeout);
-        }
-
-    }, [comments]);
-
-
-
+function Post({ post, postRef, store, handleEdit, handleDelete,
+    handleDislike, liked, counter, setComments,
+    handleLike, setCounter, comments, commentsRef, commentsVariants }) {
     return (
         <div>
-
-
             <div class="row" key={post.id} ref={postRef}>
 
                 <div class="col s12 l10 offset-l2">
@@ -230,7 +90,8 @@ function Post({ post, formRef }) {
 
                                             <a class={`btn-floating ${comments ? 'red darken-2' : 'indigo'} right`}
                                                 onClick={() => {
-                                                    setCounter(counter+1)
+                                                    console.log("CLICKED")
+                                                    setCounter(counter + 1)
                                                     setComments(!comments)
 
                                                 }}><i class="material-icons">comment</i></a>
@@ -248,14 +109,14 @@ function Post({ post, formRef }) {
 
 
                             <div ref={commentsRef} >
-                            <AnimatePresence>
-                                {comments && <motion.div className='row transparent'
-                                    variants={commentsVariants}
-                                    animate="visible"
-                                    initial="hidden"
-                                    exit="exit">
-                                    <Comments postId={post._id} comments={post.comments}></Comments></motion.div>}
-                            </AnimatePresence>
+                                <AnimatePresence>
+                                    {comments && <motion.div className='row transparent'
+                                        variants={commentsVariants}
+                                        animate="visible"
+                                        initial="hidden"
+                                        exit="exit">
+                                        <CommentsContainer postId={post._id} comments={post.comments}></CommentsContainer></motion.div>}
+                                </AnimatePresence>
                             </div>
 
 
@@ -273,28 +134,5 @@ function Post({ post, formRef }) {
         </div>
     )
 }
-
-Post.propTypes = {
-    formRef: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-    ]),
-    post: PropTypes.shape({
-        _id: PropTypes.string,
-        comments: PropTypes.array,
-        date: PropTypes.string,
-        description: PropTypes.string,
-        images: PropTypes.array,
-        likeCount: PropTypes.number,
-        likedUsers: PropTypes.array,
-        tags: PropTypes.array,
-        title: PropTypes.string,
-        uid: PropTypes.string,
-        user: PropTypes.string,
-        userProfilePicture: PropTypes.string
-    }),
-
-}
-
 
 export default Post

@@ -1,37 +1,9 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addComments } from '../../../../../actions/post'
+import React from 'react'
 import moment from 'moment'
-import '../../../../../Assets/styles/styles.css'
-import PropTypes from 'prop-types';
 
-function Comments({ postId, comments }) {
-
-    const dispatch = useDispatch()
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        details.date = new Date()
-        await dispatch(addComments(details))
-
-        setDetails({
-            ...details,
-            text: '',
-        })
-
-    }
-
-
-    const [details, setDetails] = useState({
-        postId: postId,
-        text: '',
-        date: ''
-    })
-
-
-
+function Comments({ handleSubmit, setDetails, details, comments }) {
     return (
-        <div>
+        <>
 
             <div className="row" style={{ 'padding': "20px", 'border-top': '1px solid rgba(160,160,160,0.2)' }}>
                 <form className="col s12" onSubmit={(e) => handleSubmit(e)}>
@@ -70,10 +42,8 @@ function Comments({ postId, comments }) {
 
                                     <div class="card row  grey lighten-5 z-depth-1" style={{ "padding": "10px 0px 0 20px" }}>
                                         <div class="col s2">
-                                            {/* <img src={comment.userProfilePicture} alt="" style={{"border-radius":"50%"}} class="responsive-img" /> */}
                                             <img src={comment.userProfilePicture} alt="" style={{ "border-radius": "50%" }} class="img-responsive-thumbnail" />
                                             <div class="black-text text-responsive-thumbnail">
-                                                {/* <p className="left">{comment.user}</p> */}
 
                                             </div>
 
@@ -96,24 +66,11 @@ function Comments({ postId, comments }) {
                         )}
                     </div>
 
-                </div>):<p className='center'>No Comments Yet</p>
+                </div>) : <p className='center'>No Comments Yet</p>
             }
 
-        </div>
+        </>
     )
 }
-
-Comments.propTypes = {
-
-    postId: PropTypes.string,
-    comments: PropTypes.arrayOf(PropTypes.shape({
-        comments: PropTypes.string,
-        date: PropTypes.string,
-        user: PropTypes.string,
-        userProfilePicture: PropTypes.string
-    })),
-
-}
-
 
 export default Comments

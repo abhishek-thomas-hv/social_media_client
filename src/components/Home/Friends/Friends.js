@@ -1,39 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import '../../../Assets/styles/styles.css'
-import { useDispatch } from 'react-redux'
-import { getProfile } from '../../../actions/profile'
-import { getUsers } from '../../../actions/users'
+import React from 'react'
+import { AnimateSharedLayout } from "framer-motion"
 import FriendsChild from './FriendsChild';
-import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 
-function Friends() {
-
-    const [option, setOption] = useState('list')
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-
-        async function get() {
-            await dispatch(getProfile())
-        }
-        get()
-
-        async function getSomeUsers() {
-            await dispatch(getUsers())
-        }
-        getSomeUsers()
-
-
-        return () => {
-
-        }
-    }, [dispatch])
-
-
-
+function Friends({ option, setOption }) {
     return (
-        <>
+        <div>
             <div class='row'>
 
 
@@ -46,19 +17,19 @@ function Friends() {
 
                         <a class={`collection-item ${option === 'list' && 'active'}`} style={{ "padding": "20px" }} onClick={() => setOption('list')}>
                             Friends List
-                            <span class="secondary-content"><i class="material-icons">
+            <span class="secondary-content"><i class="material-icons">
                                 {option == 'list' ? 'send' : 'double_arrow'}</i></span>
                         </a>
 
                         <a class={`collection-item ${option === 'requests' && 'active'}`} style={{ "padding": "20px" }} onClick={() => setOption('requests')}>
                             Friend Requests
-                            <span class="secondary-content"><i class="material-icons">
+            <span class="secondary-content"><i class="material-icons">
                                 {option == 'requests' ? 'send' : 'double_arrow'}</i></span>
                         </a>
 
                         <a class={`collection-item ${option === 'newFriends' && 'active'}`} style={{ "padding": "20px" }} onClick={() => setOption('newFriends')}>
                             Find New Friends
-                            <span class="secondary-content"><i class="material-icons">
+            <span class="secondary-content"><i class="material-icons">
                                 {option == 'newFriends' ? 'send' : 'double_arrow'}</i></span>
                         </a>
 
@@ -68,7 +39,7 @@ function Friends() {
 
 
                 <div className='col l5 offset-l1 hide-on-med-and-down'>
-                <AnimateSharedLayout type="crossfade">
+                    <AnimateSharedLayout type="crossfade">
 
                         {option === 'list' && <FriendsChild option='list'>
 
@@ -78,12 +49,12 @@ function Friends() {
                         {option === 'requests' && <FriendsChild option='requests'>
 
                         </FriendsChild>}
-                        
+
                         {option === 'newFriends' && <FriendsChild option='newFriends'>
 
                         </FriendsChild>}
-                        
-                </AnimateSharedLayout>
+
+                    </AnimateSharedLayout>
 
                 </div>
 
@@ -104,7 +75,7 @@ function Friends() {
 
             </div>
 
-        </>
+        </div>
     )
 }
 

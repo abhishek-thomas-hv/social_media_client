@@ -1,106 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-import materialze from 'materialize-css'
-import { SignUpFormSubmit } from '../../actions/auth'
+import React from 'react'
 import FileBase from 'react-file-base64'
-import { useDispatch } from 'react-redux'
-import '../../Assets/styles/styles.css'
 
-function Signup() {
-
-    const dispatch = useDispatch()
-    useEffect(() => {
-        var element = document.querySelectorAll('.datepicker');
-        materialze.Datepicker.init(element, {
-            container: "html",
-            onClose: function (date) {
-                // setDetails({...details,dateOfBirth:dob.current.value})
-            },
-            minDate: new Date(1950, 1, 1),
-            maxDate: new Date(2015, 1, 1),
-            yearRange: [1970, 2015],
-            autoClose: true
-        });
-
-
-
-        return () => {
-
-        }
-    }, [])
-
-    const dob = useRef()
-
-    const [details, setDetails] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        mobileNumber: '',
-        password: '',
-        profilePicture: '',
-        gender: 'male',
-        dateOfBirth: ''
-    })
-
-    const [confirmPassword, setconfirmPassword] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
-
-    const [errors, setErrors] = useState({
-        email: '',
-        password: '',
-        picture: ''
-    })
-
-    const handleSubmit = async (event) => {
-
-        event.preventDefault()
-
-        if (details.password !== confirmPassword) {
-            setErrors({
-                email: '',
-                password: 'Please Enter same password in both fields',
-                picture: ''
-            })
-            return
-        }
-
-        if (details.profilePicture === '') {
-            setErrors({
-                email: '',
-                password: '',
-                picture: 'Please Select Profile Picture'
-            })
-            return
-        }
-
-        console.log(details)
-        setIsLoading(true)
-        setErrors({
-            email: '',
-            password: '',
-            picture: ''
-        })
-
-
-        details.dateOfBirth = dob.current.value
-        setTimeout(async () => {
-
-            const result = await SignUpFormSubmit(details)
-            console.log(result)
-            setIsLoading(false)
-
-            if (result.errors) {
-                setErrors({ password: result.errors.password, email: result.errors.email })
-            }
-
-            else {
-                dispatch({ type: "AUTHENTICATED", payload: result.data.user })
-            }
-
-        }, 1500);
-
-
-    }
-
+function Signup({ details, handleSubmit, setDetails, errors, confirmPassword, setconfirmPassword, dob, isLoading }) {
     return (
         <div className='row upper-padding-small'>
             <form className='col s12 l10 m10 offset-m1 offset-l1 center white' style={{ "padding": "50px" }}
@@ -212,7 +113,7 @@ function Signup() {
                             <div class="btn grey darken-1">
                                 <span>
                                     <i class="material-icons left">linked_camera</i>  Profile Picture
-                                        </span>
+                                    </span>
                                 <FileBase type="file" className=" " multiple={false}
                                     onDone={({ base64 }) => { setDetails({ ...details, profilePicture: base64 }) }}>
                                 </FileBase>

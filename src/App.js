@@ -7,12 +7,10 @@ import {
 } from "react-router-dom";
 
 import {useDispatch,useSelector} from 'react-redux'
-import {getPosts} from './actions/post'
 import {getUserId} from './actions/auth'
 
 
 import Home from './components/Home/Home';
-import Signup from './components/Authentication/Signup';
 import Wrapper from './components/Authentication/Wrapper';
 
 
@@ -58,10 +56,11 @@ function App() {
     }
 
     get()
+
     return () => {
       
     }
-  },[store])
+  },[dispatch,store])
 
   
   if(isLoading)

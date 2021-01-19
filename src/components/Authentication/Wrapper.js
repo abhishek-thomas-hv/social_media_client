@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../../Assets/styles/styles.css'
-import Signup from './Signup'
-import Login from './Login'
+import SignupContainer from './SignupContainer'
+import LoginContainer from './LoginContainer'
 
 function Wrapper() {
 
@@ -29,7 +29,7 @@ function Wrapper() {
 
                 </div>
 
-                {isregister ? <Signup /> : <Login />
+                {isregister ? <SignupContainer /> : <LoginContainer />
                 }
 
             </div>

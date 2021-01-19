@@ -1,30 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../actions/auth'
-import Posts from './Posts/Posts';
 import '../../Assets/styles/styles.css'
-import Profile from './Profile/Profile'
-import Friends from './Friends/Friends'
-
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-
-
+import MyRouter from './MyRouter'
 
 function Home() {
 
     const dispatch = useDispatch()
-
-    // useEffect(() => {
-
-    //     return () => {
-
-    //     }
-    // }, [dispatch])
 
     const handleLogout = () => {
 
@@ -44,73 +26,13 @@ function Home() {
     return (
         <div>
 
-            <Router>
-                <div>
-                    <div class="navbar-fixed grey darken-4"
-                    >
-                        <nav class="grey darken-4">
-                            <div class="nav-wrapper grey darken-4 container">
-                                <a href="#" class="brand-logo center" ><span style={{ "font-size": "25px" }} class="material-icons">facebook</span></a>
-                                <a href="#" data-target="mobile-demo" class="sidenav-trigger" onClick={() => openNav()}><i class="material-icons">menu</i></a>
-                                <ul className="left hide-on-med-and-down">
-                                    <li className="hoverlist">
-                                        <Link to="/">Home</Link>
-                                    </li>
-                                    <li className="hoverlist">
-                                        <Link to="/profile">View Profile</Link>
-                                    </li>
-                                    <li className="hoverlist">
-                                        <Link to="/friends">View Friends</Link>
-                                    </li>
-                                </ul>
+            <MyRouter
+                openNav={openNav}
+                closeNav={closeNav}
+                handleLogout={handleLogout}
+            >
 
-                                <ul className='right'>
-                                    <li>
-                                        <a style={{ "padding-top": "5px" }} className='hover-link btn btn-large btn-flat transparent white-text right valign-wrapper'
-                                            onClick={(e) => { handleLogout() }}><span class='material-icons right'>logout</span>Logout &nbsp;</a>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-                            <div id="mySidenav" class="my-sidenav">
-                                <a href="#" class="closebtn" onClick={() => closeNav()}>&times;</a>
-                                <Link to="/" style={{ "font-size": "20px" }}>Home</Link>
-                                <Link to="/profile" style={{ "font-size": "20px" }}>View Profile</Link>
-                                <Link to="/friends" style={{ "font-size": "20px" }}>View Friends</Link>
-                            </div>
-
-
-                        </nav>
-
-                    </div>
-
-                    <Switch>
-                        <Route path="/profile">
-                            <div className='' style={{ 'margin-top': "4rem" }}>
-
-                                <Profile></Profile>
-
-                            </div>
-                        </Route>
-                        <Route path="/friends">
-                            <div className='' style={{ 'margin-top': "4rem" }}>
-
-                                <Friends></Friends>
-
-                            </div>
-                        </Route>
-                        <Route path="/">
-                            <div className='' style={{ 'margin-top': "4rem" }}>
-
-                                <Posts></Posts>
-
-                            </div>
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>
+            </MyRouter>
 
         </div >
     )
