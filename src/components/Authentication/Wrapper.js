@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from 'react'
-import materialze from 'materialize-css'
-import './styles.css'
+import React, { useState } from 'react'
+import '../../Assets/styles/styles.css'
 import Signup from './Signup'
 import Login from './Login'
 
@@ -19,25 +18,22 @@ function Wrapper() {
 
                     <div className='col s6 l4 offset-l2'>
                         <button className='btn btn-large right white darken-3 grey-text text-darken-2 hoverable'
-                        onClick={() => setIsRegister(true)}>
+                            onClick={() => setIsRegister(true)}>
                             <i class="material-icons left">how_to_reg</i>Signup</button>
                     </div>
                     <div className='col s6 l4'>
-                        <button className='btn btn-large left white darken-3 grey-text text-darken-2 hoverable' 
-                        onClick={() => setIsRegister(false)}>
-                        <i class="material-icons left">login</i>Login</button>
+                        <button className='btn btn-large left white darken-3 grey-text text-darken-2 hoverable'
+                            onClick={() => setIsRegister(false)}>
+                            <i class="material-icons left">login</i>Login</button>
                     </div>
 
                 </div>
 
-
-                {/* <div className='row'> */}
-                    {isregister?<Signup/>:<Login/>
-                    }
-                {/* </div> */}
+                {isregister ? <Signup /> : <Login />
+                }
 
             </div>
-            
+
         </div>
     )
 }

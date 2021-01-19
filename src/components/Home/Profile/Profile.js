@@ -1,7 +1,6 @@
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import materialize from 'materialize-css';
-import './styles.css'
-import FileBase from 'react-file-base64'
+import '../../../Assets/styles/styles.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfile } from '../../../actions/profile'
 import EditProfile from './Editprofile/Editprofile'
@@ -34,7 +33,7 @@ const profileVariant ={
       opacity:1,
       transition:{
         type:"spring",
-        delay:0.2
+        delay:0.5,
       }
     },
   }
@@ -47,10 +46,11 @@ function Profile() {
     const profileStore = useSelector(state => state.profile)
 
     const [editProfile, setEditProfile] = useState(false)
+    const profileRef = useRef(null)
 
     useEffect(() => {
         var elems = document.querySelectorAll('.materialboxed');
-        var instances = materialize.Materialbox.init(elems);
+        materialize.Materialbox.init(elems);
         return () => {
             
         }
@@ -68,19 +68,20 @@ function Profile() {
         }
     }, [dispatch])
 
+
     return (
         <>
             {profileStore.firstName && 
-            <div className='row profile-card'>
-                <div className={`col s10 offset-s1 ${editProfile?'l4 offset-l1':'l6 offset-l3'} transparent`}>
+            <div className='row profile-card' id=''>
+                <div ref={profileRef} className={`col s10 offset-s1 ${editProfile?'l4 offset-l1 animate-profile':'l6 offset-l3'} transparent`}>
 
                 <motion.div class="card" variants={profileVariant}
               animate="visible"
               initial="hidden" >
                     <div class="card-image">
-                        <img src={profileStore.profilePicture} className='materialboxed'/>
+                        <img src={profileStore.profilePicture} alt="" className='materialboxed'/>
                         <a class="btn-floating halfway-fab indigo"
-                        onClick={() => {
+                        onClick={(e,profileRef) => {
                             setEditProfile(!editProfile)
                         }
                         

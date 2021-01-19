@@ -1,6 +1,4 @@
-const initialState = [
-
-]
+const initialState = []
 
 const PostReducer = (posts=initialState,action) =>
 {

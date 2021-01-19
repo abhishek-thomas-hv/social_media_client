@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import materialize from 'materialize-css';
-import { useDispatch, useSelector } from 'react-redux'
-import { getPosts } from '../../actions/post'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { logout } from '../../actions/auth'
 import Posts from './Posts/Posts';
-import './styles.css'
+import '../../Assets/styles/styles.css'
 import Profile from './Profile/Profile'
 import Friends from './Friends/Friends'
-import {motion} from 'framer-motion'
 
 import {
     BrowserRouter as Router,
@@ -22,34 +19,27 @@ function Home() {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        return () => {
+    // useEffect(() => {
 
-        }
-    },[])
+    //     return () => {
 
-    useEffect(() => {
+    //     }
+    // }, [dispatch])
 
-        return () => {
-
-        }
-    }, [dispatch])
-
-    const handleLogout = () =>
-    {
+    const handleLogout = () => {
 
         dispatch(logout())
 
-    } 
+    }
 
     const openNav = () => {
         document.getElementById("mySidenav").style.width = "250px";
-      }
-      
+    }
 
-      const closeNav = () => {
+
+    const closeNav = () => {
         document.getElementById("mySidenav").style.width = "0";
-      } 
+    }
 
     return (
         <div>
@@ -57,10 +47,10 @@ function Home() {
             <Router>
                 <div>
                     <div class="navbar-fixed grey darken-4"
-                        >
+                    >
                         <nav class="grey darken-4">
                             <div class="nav-wrapper grey darken-4 container">
-                                <a href="#" class="brand-logo center" ><span style={{"font-size":"25px"}} class="material-icons">work</span></a>
+                                <a href="#" class="brand-logo center" ><span style={{ "font-size": "25px" }} class="material-icons">facebook</span></a>
                                 <a href="#" data-target="mobile-demo" class="sidenav-trigger" onClick={() => openNav()}><i class="material-icons">menu</i></a>
                                 <ul className="left hide-on-med-and-down">
                                     <li className="hoverlist">
@@ -76,22 +66,22 @@ function Home() {
 
                                 <ul className='right'>
                                     <li>
-                                    <a style={{"padding-top":"5px"}}className='hover-link btn btn-large btn-flat transparent white-text right valign-wrapper' 
-                                onClick ={(e) => {handleLogout()}}><span class='material-icons right'>logout</span>Logout &nbsp;</a>
+                                        <a style={{ "padding-top": "5px" }} className='hover-link btn btn-large btn-flat transparent white-text right valign-wrapper'
+                                            onClick={(e) => { handleLogout() }}><span class='material-icons right'>logout</span>Logout &nbsp;</a>
                                     </li>
                                 </ul>
-                    
+
                             </div>
 
 
                             <div id="mySidenav" class="my-sidenav">
                                 <a href="#" class="closebtn" onClick={() => closeNav()}>&times;</a>
-                                <Link to="/" style={{"font-size":"20px"}}>Home</Link>
-                                <Link to="/profile"  style={{"font-size":"20px"}}>View Profile</Link>
-                                <Link to="/friends"  style={{"font-size":"20px"}}>View Friends</Link>
+                                <Link to="/" style={{ "font-size": "20px" }}>Home</Link>
+                                <Link to="/profile" style={{ "font-size": "20px" }}>View Profile</Link>
+                                <Link to="/friends" style={{ "font-size": "20px" }}>View Friends</Link>
                             </div>
-                            
-                        
+
+
                         </nav>
 
                     </div>

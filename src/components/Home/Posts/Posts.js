@@ -1,78 +1,76 @@
 import React, { useEffect, useState, useRef } from 'react'
 import materialize from 'materialize-css';
-import './styles.css'
-import FileBase from 'react-file-base64'
+import '../../../Assets/styles/styles.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPost, editPost } from '../../../actions/post'
 import { getPosts } from '../../../actions/post'
 import Post from './Post/Post'
 import { motion } from "framer-motion"
-import PropTypes from 'prop-types';
 
 const imageVariant = {
-    hover:{
-      scale:1.2,
-      textShadow:"0px 0px 8px rgb(255,255,255)",
-      boxShadow:"0px 0px 8px rgb(255,255,255)",
-      transition:{
-        yoyo:Infinity,
-        duration:0.3
-      }
-     }
-  }
+    hover: {
+        scale: 1.2,
+        textShadow: "0px 0px 8px rgb(255,255,255)",
+        boxShadow: "0px 0px 8px rgb(255,255,255)",
+        transition: {
+            yoyo: Infinity,
+            duration: 0.3
+        }
+    }
+}
 
-  
+
 const butVaraints = {
-    hover:{
-      scale:1.2,
-      textShadow:"0px 0px 8px rgb(255,255,255)",
-      boxShadow:"0px 0px 8px rgb(255,255,255)",
-      transition:{
-        yoyo:Infinity,
-        duration:0.3
-      }
-     }
-  }
+    hover: {
+        scale: 1.2,
+        textShadow: "0px 0px 8px rgb(255,255,255)",
+        boxShadow: "0px 0px 8px rgb(255,255,255)",
+        transition: {
+            yoyo: Infinity,
+            duration: 0.3
+        }
+    }
+}
 
-  const formVariants ={
+const formVariants = {
     hidden:
     {
-      x:"-15vw",
-      opacity:0
+        x: "-15vw",
+        opacity: 0
     },
-    visible:{
-      x:0,
-      opacity:1,
-      transition:{
-        type:"spring",
-        delay:0.5
-      }
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            delay: 0.5
+        }
     },
-  }
+}
 
-  const postsVariants ={
+const postsVariants = {
     hidden:
     {
-      x:"-25vw",
-      opacity:0
+        x: "-25vw",
+        opacity: 0
     },
-    visible:{
-      x:0,
-      opacity:1,
-      transition:{
-        type:"spring",
-        delay:0.2
-      }
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            delay: 0.2
+        }
     },
-  }
-  
+}
+
 function Posts() {
 
 
     const postStore = useSelector(state => state.post)
 
     const postEdit = useSelector(state => state.editpost)
-    
+
     const [isSending, setIsSending] = useState(false)
 
     const [fileError, setFileError] = useState('')
@@ -92,7 +90,6 @@ function Posts() {
     const [isActive, setIsActive] = useState(false)
 
     const dispatch = useDispatch()
-    const store = useSelector(state => state.auth)
 
     const loaderRef = useRef(null)
 
@@ -165,17 +162,16 @@ function Posts() {
     }
 
     useEffect(() => {
-        if(isSending)
-        {
+        if (isSending) {
             loaderRef.current.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
                 inline: "start"
-    
-              });
+
+            });
         }
         return () => {
-            
+
         }
     }, [isSending])
 
@@ -183,14 +179,13 @@ function Posts() {
 
         e.preventDefault()
 
-        if(details.images.length===0)
-        {
+        if (details.images.length === 0) {
             setFileError('Please Select Atleast One File')
             return
         }
 
         setFileError('')
-        
+
 
         setIsSending(true)
 
@@ -206,30 +201,28 @@ function Posts() {
                     behavior: "smooth",
                     block: "nearest",
                     inline: "start"
-        
-                  });
-                if(result.POST_ERROR)
-                {
+
+                });
+                if (result.POST_ERROR) {
                     setMessage('There was an error Editing Post')
 
                     setTimeout(() => {
 
                         setMessage('')
-                        
+
                     }, 3000);
                 }
 
-                else
-                {
+                else {
                     setMessage('Post Successfully Edited')
 
                     setTimeout(() => {
 
                         setMessage('')
-                        
+
                     }, 3000);
                 }
-                
+
             }, 1000);
         }
 
@@ -243,31 +236,29 @@ function Posts() {
                 setIsSending(false)
                 formRef.current.scrollIntoView({
                     behavior: "smooth",
-                    block: "nearest",
-                    inline: "start"
-        
-                  });
-                if(result.POST_ERROR)
-                {
+                    block: "center",
+                    inline: "center"
+
+                });
+                if (result.POST_ERROR) {
                     setMessage('There was an error Adding Post')
                     setTimeout(() => {
 
                         setMessage('')
-                        
+
                     }, 3000);
                 }
 
-                else
-                {
+                else {
                     setMessage('Post Successfully Added')
 
                     setTimeout(() => {
 
                         setMessage('')
-                        
+
                     }, 3000);
                 }
-                
+
             }, 1000);
         }
 
@@ -305,21 +296,21 @@ function Posts() {
     return (
         <>
 
-            <div className="row" 
-              >
+            <div className="row"
+            >
 
-                <motion.form ref={formRef} className="col s10 offset-s1 l4 offset-l1 m6 offset-m3 center white" 
-                onSubmit={(e) => handleSubmit(e)} style={{ "padding": "30px" }}
-                variants={formVariants}
-              animate="visible"
-              initial="hidden"
-              >
+                <motion.form ref={formRef} className="col s10 offset-s1 l4 offset-l1 m6 offset-m3 center white"
+                    onSubmit={(e) => handleSubmit(e)} style={{ "padding": "30px" }}
+                    variants={formVariants}
+                    animate="visible"
+                    initial="hidden"
+                >
 
                     <h6><u>{postEdit ? "Edit Post" : "Add Post"}</u></h6>
 
                     <div className="row">
                         <div className="input-field col s12">
-                        <i class="material-icons prefix">title</i>
+                            <i class="material-icons prefix">title</i>
                             <input id="title" type="text" className='validate' value={details.title} required={true}
                                 onChange={(e) => setDetails({ ...details, title: e.target.value })} />
                             <label for="title" className={`${isActive ? "active" : ""}`}>Title</label>
@@ -329,7 +320,7 @@ function Posts() {
 
                     <div className="row">
                         <div className="input-field col s12">
-                        <i class="material-icons prefix">description</i>
+                            <i class="material-icons prefix">description</i>
                             <textarea id="textarea1" className="materialize-textarea" value={details.description} required={true}
                                 onChange={(e) => setDetails({ ...details, description: e.target.value })}></textarea>
                             <label for="textarea1" className={`${isActive ? "active" : ""}`}>Describe Your Post</label>
@@ -343,7 +334,7 @@ function Posts() {
 
                     <div class="row">
                         <div className="input-field col s12">
-                        <i class="material-icons prefix">local_offer</i>
+                            <i class="material-icons prefix">local_offer</i>
                             <input id="tags" type="text" className="validate" value={details.tags}
                                 onChange={(e) => setDetails({ ...details, tags: e.target.value.split(',') })} />
                             <label for="tags" className={`${isActive ? "active" : ""} validate`}>Tags seperated by Comma</label>
@@ -351,25 +342,25 @@ function Posts() {
                     </div>
 
 
-    
+
 
                     <div className="row">
                         <div className='col s12'>
                             <div className="image-upload ">
                                 <label for="file-input">
                                     <motion.span className="material-icons pointer indigo-text text-darken-1" style={{ 'font-size': "5rem" }}
-                                    variants={imageVariant}
-                                    whileHover="hover">
-                                    add_photo_alternate
+                                        variants={imageVariant}
+                                        whileHover="hover">
+                                        add_photo_alternate
                                     </motion.span>
                                 </label>
                                 <input id='file-input' type="file" className="" multiple={true} required={false} ref={fileInput}
-                                onChange={(e) => handleFileSubmit(e)}
-                            >
-                            </input>
+                                    onChange={(e) => handleFileSubmit(e)}
+                                >
+                                </input>
                             </div>
-                            <span style={{'color':"orangered"}}>{fileError}</span>
-                          
+                            <span style={{ 'color': "orangered" }}>{fileError}</span>
+
                         </div>
                     </div>
 
@@ -389,7 +380,7 @@ function Posts() {
 
                                     }}
                                 ><img style={{ "margin": "5px" }} width={100} height={100} src={image} class="img-responsive hover-image" />
-                                
+
                                 </a>
                             )
                         }
@@ -402,31 +393,31 @@ function Posts() {
 
                         <div className='col l6 s6 '>
                             <button className='btn indigo right hoverable' style={{ 'margin-top': "15px" }}>Submit Post</button>
-                        </div>  
+                        </div>
                         <div className='col l6 s6 '>
                             <button onClick={(e) => clear()} style={{ 'margin-top': "15px" }} class="btn left red hoverable"><i class="material-icons left">close</i>Clear</button>
                         </div>
 
                     </div>
 
-                    
-     
+
+
                     {isSending ? (
-                      <div class='row' ref={loaderRef}>
+                        <div class='row' ref={loaderRef}>
                             <div class="bouncing center col s4 offset-s4">
                                 <div></div>
                                 <div></div>
                                 <div></div>
                                 <div></div>
+                            </div>
                         </div>
-                      </div>
-                      
-                    )
-                    :''}
 
-                    { message && (
-                        <div className='container grey lighten-4 z-depth-2' style={{"padding":'5px 10px'}}>
-                            <p style={{"font-size":"17px"}}><b>{message}</b></p>
+                    )
+                        : ''}
+
+                    {message && (
+                        <div className='container grey lighten-4 z-depth-2' style={{ "padding": '5px 10px' }}>
+                            <p style={{ "font-size": "17px" }}><b>{message}</b></p>
                         </div>
                     )
 
@@ -457,24 +448,24 @@ function Posts() {
 
                 ) :
                     <motion.div className="col l5 offset-l1 transparent hide-on-med-and-down" style={{ "padding": '0px' }}
-                    variants={postsVariants}
-                    animate="visible"
-                    initial="hidden">
+                        variants={postsVariants}
+                        animate="visible"
+                        initial="hidden">
                         {postStore.map(post =>
                             <Post post={post} formRef={formRef}></Post>
                         )}
                     </motion.div>}
-                    
+
 
 
             </div>
 
             <div className='row hide-on-large-only'>
-                    <div className="col l5 offset-l1 transparent m8 offset-m2 s10 offset-s1 " style={{ "padding": '0px' }}>
-                        {postStore.map(post =>
-                            <Post post={post} formRef={formRef}></Post>
-                        )}
-                    </div>
+                <div className="col l5 offset-l1 transparent m8 offset-m2 s10 offset-s1 " style={{ "padding": '0px' }}>
+                    {postStore.map(post =>
+                        <Post post={post} formRef={formRef}></Post>
+                    )}
+                </div>
             </div>
 
 

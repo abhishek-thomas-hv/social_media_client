@@ -1,0 +1,346 @@
+/* auth styles */
+
+.upper-padding
+{
+    padding-top:7rem;
+}
+
+
+.upper-padding-small
+{
+    padding-top:3rem;
+}
+
+
+.dropdown-content {
+    position: fixed;
+    height:200px !important;
+    top: 10% !important;
+  }
+
+
+
+
+/* home styles */
+
+.hoverlist:hover
+{
+    text-emphasis:filled;
+}
+
+.hoverlist
+{
+    border-radius: 20%;
+}
+
+.hover-link:hover
+{  
+    text-emphasis:filled;
+    
+}
+
+.my-sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed; 
+    z-index: 1;
+    top: 0; 
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s; 
+  }
+  
+  .my-sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .my-sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .my-sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+
+  #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+
+  /* profile styles */
+
+  @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+
+body {
+  background-color: antiquewhite;
+}
+
+.profile-card .card {
+  background-color: #f4f4f4;
+  margin: 10px auto;
+  box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+}
+
+
+.profile-card .card-content {
+  width: 85%;
+  margin: 10px auto;
+}
+
+.profile-card .card-content h3 {
+  font-size: 30px;
+  margin-bottom: 0;
+  color: black;
+}
+
+.profile-card .card-content h4 {
+  font-size: 18px;
+  margin-top: 0;
+  color: black;
+}
+
+.profile-card .card-content p {
+  color: #727272;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  
+}
+
+.profile-card .card-footer
+{
+    border-top: solid 1px #B6B6B6;
+    padding: 5px;
+}
+
+.animate-profile
+{
+  animation: animation-profile 0.5s linear 0s 1;
+}
+
+@keyframes animation-profile {
+  0%{opacity:0}
+  100% {opacity: 1;}
+}
+
+
+/* edit profile styles */
+
+.bouncing
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width:90px;
+  height:100px;
+}
+
+.bouncing div
+{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: teal;
+  animation: bouncer 0.5s cubic-bezier(.19,.57,.3,.98) infinite alternate;
+}
+
+.bouncing div:nth-child(2)
+{
+  animation-delay: 0.1s
+}
+
+.bouncing div:nth-child(3)
+{
+  animation-delay: 0.2s
+}
+
+.bouncing div:nth-child(4)
+{
+  animation-delay: 0.3s
+}
+
+@keyframes bouncer {
+
+0%{transform:translateY(0)}
+100%{transform:translateY(-50px)}
+
+}
+
+
+
+/* posts styles */
+
+
+.image-upload
+{
+    cursor:pointer;
+}
+
+.pointer
+{
+    cursor:pointer
+}
+
+
+  input[type=file]:required {
+    box-shadow:none;
+}
+
+#file-input
+{
+    display:none;
+}
+
+
+.bouncing
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width:90px;
+  height:100px;
+}
+
+.bouncing div
+{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: teal;
+  animation: bouncer 0.5s cubic-bezier(.19,.57,.3,.98) infinite alternate;
+}
+
+.bouncing div:nth-child(2)
+{
+  animation-delay: 0.1s
+}
+
+.bouncing div:nth-child(3)
+{
+  animation-delay: 0.2s
+}
+
+.bouncing div:nth-child(4)
+{
+  animation-delay: 0.3s
+}
+
+@keyframes bouncer {
+
+0%{transform:translateY(0)}
+100%{transform:translateY(-50px)}
+
+}
+
+.hover-image:hover
+{
+  opacity:0.2
+}
+
+
+
+/* post styles */
+
+.carousel .carousel-item {
+
+    width:100%;
+    height:100%;
+}
+
+.btn-floating.halfway-fab:nth-child(2)
+{
+
+    right:80px;
+}
+
+.row.margin-remove
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
+    margin-bottom:0px
+}
+
+.img-responsive-thumbnail
+{
+position: absolute;
+/* margin-left:20px; */
+width: 52px;
+height: 52px;
+left: 35px;
+}
+
+.text-responsive-thumbnail
+{
+margin-left:90px;
+}
+
+
+/* comments styles */
+
+.comments-row .img-responsive-thumbnail
+{
+position: absolute;
+width: 52px;
+height: 52px;
+left: 25px;
+}
+
+/* friends styles */
+
+.margin-image
+{
+    margin-top:10px
+}
+
+
+.collection a.collection-item
+{
+    cursor: pointer;
+    color:black
+
+}
+
+.collection a.collection-item i
+{
+    cursor: pointer;
+    color:grey
+
+}
+
+.collection a.collection-item.active i
+{
+    color:white
+    
+}
+
+.collection .collection-item.active {
+    background-color:rgb(100, 100, 100);
+    border-color: black;
+    color: white;
+    border-radius: 3px;
+}
+
+.collection .collection-item.avatar {
+    min-height: 84px;
+    padding-left: 72px;
+    position: relative;
+}

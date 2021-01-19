@@ -1,18 +1,14 @@
-import {getUsersApi} from '../api/index'
+import { getUsersApi } from '../api/index'
 
 
-export const getUsers = () => async (dispatch) =>
-{
+export const getUsers = () => async (dispatch) => {
 
-    try
-    {
+    try {
         const result = await getUsersApi()
-        dispatch({type:"GET_USERS",payload:result.data})
-        console.log(result.data)
+        dispatch({ type: "GET_USERS", payload: result.data })
     }
 
-    catch(e)
-    {
+    catch (e) {
         console.log(e)
     }
 
