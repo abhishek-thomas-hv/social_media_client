@@ -75,7 +75,7 @@ function Post({ post, postRef, store, handleEdit, handleDelete,
                                         onClick={() => { handleLike() }}><i class="material-icons indigo-text">favorite_border</i></a>
                                 ) :
                                     (<a class="btn-floating transparent"
-                                        onClick={() => { handleDislike() }}><i class="material-icons indigo-text">favorite</i></a>)}
+                                        onClick={() => { handleDislike() }}><i class="material-icons indigo-text animate-like">favorite</i></a>)}
 
                                 &nbsp;&nbsp;&nbsp;
                                      <a class={`btn-floating transparent `}
