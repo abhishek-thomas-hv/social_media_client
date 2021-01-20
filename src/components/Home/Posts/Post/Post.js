@@ -64,48 +64,27 @@ function Post({ post, postRef, store, handleEdit, handleDelete,
                         </div>
 
                         <div class="card-action">
-                            <div className='row margin-remove' style={{ "margin-bottom": "0px !important" }}>
+                            <div className='row margin-remove'>
+                                <p className='grey-text text-darken-1' style={{ "display": "inline" }}> {post.likeCount} Likes </p>
+                                <span> &nbsp;&nbsp;&nbsp;</span>
+                                <p className='grey-text text-darken-1' style={{ "display": "inline" }}> {post.comments.length} Comments </p>
+                            </div>
+                            <div className='row margin-remove'>
+                                {!liked ? (
+                                    <a class="btn-floating transparent"
+                                        onClick={() => { handleLike() }}><i class="material-icons indigo-text">favorite_border</i></a>
+                                ) :
+                                    (<a class="btn-floating transparent"
+                                        onClick={() => { handleDislike() }}><i class="material-icons indigo-text">favorite</i></a>)}
 
-                                <div className='col l6'>
-                                    <div className='row'>
-                                        <div className='col l6'>
-                                            {!liked ? (
-                                                <a class="btn-floating indigo right"
-                                                    onClick={() => { handleLike() }}><i class="material-icons">thumb_up</i></a>
-                                            ) :
-                                                (<a class="btn-floating right red"
-                                                    onClick={() => { handleDislike() }}><i class="material-icons  ">thumb_down</i></a>)}
-                                        </div>
+                                &nbsp;&nbsp;&nbsp;
+                                     <a class={`btn-floating transparent `}
+                                    onClick={() => {
+                                        console.log("CLICKED")
+                                        setCounter(counter + 1)
+                                        setComments(!comments)
 
-                                        <div className='col l6'>
-                                            <p className='left'>{post.likeCount}</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div className='col l6 right'>
-
-                                    <div className='row'>
-                                        <div className='col l6'>
-
-                                            <a class={`btn-floating ${comments ? 'red darken-2' : 'indigo'} right`}
-                                                onClick={() => {
-                                                    console.log("CLICKED")
-                                                    setCounter(counter + 1)
-                                                    setComments(!comments)
-
-                                                }}><i class="material-icons">comment</i></a>
-
-                                        </div>
-
-                                        <div className='col l6'>
-                                            <p className='left'>{post.comments.length}</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-
+                                    }}><i class={`${comments ? 'indigo-text material-icons' : 'indigo-text material-icons-outlined'}`}>comment</i></a>
                             </div>
 
 

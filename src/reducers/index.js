@@ -6,9 +6,9 @@ import users from './users'
 import editpost from './editpost'
 
 export default combineReducers({
-    auth:auth,
-    post:post,
-    profile:profile,
-    users:users,
-    editpost:editpost
+    auth: auth,
+    post: post,
+    profile: profile,
+    users: users,
+    editpost: editpost
 })
