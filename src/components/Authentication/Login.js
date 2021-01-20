@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 function Login({ setDetails, details, error, isLoading, setError, handleSubmit }) {
     return (
@@ -56,6 +57,19 @@ function Login({ setDetails, details, error, isLoading, setError, handleSubmit }
 
         </div>
     )
+}
+
+Login.propTypes = {
+    details: PropTypes.shape({
+        email: PropTypes.string,
+        password: PropTypes.string,
+    }).isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    setDetails: PropTypes.func.isRequired,
+    setError: PropTypes.func.isRequired,
+    errors: PropTypes.string,
+    isLoading: PropTypes.bool
+
 }
 
 export default Login

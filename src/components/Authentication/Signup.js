@@ -1,5 +1,6 @@
 import React from 'react'
 import FileBase from 'react-file-base64'
+import PropTypes from 'prop-types';
 
 function Signup({ details, handleSubmit, setDetails, errors, confirmPassword, setconfirmPassword, dob, isLoading }) {
     return (
@@ -154,6 +155,34 @@ function Signup({ details, handleSubmit, setDetails, errors, confirmPassword, se
 
         </div>
     )
+}
+
+Signup.propTypes = {
+    details: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        email: PropTypes.string,
+        mobileNumber: PropTypes.string,
+        password: PropTypes.string,
+        profilePicture: PropTypes.string,
+        gender: PropTypes.string,
+        dateOfBirth: PropTypes.string
+    }).isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    setDetails: PropTypes.func.isRequired,
+    errors: PropTypes.shape({
+        password: PropTypes.string,
+        pciture: PropTypes.string,
+        email: PropTypes.string,
+    }),
+    confirmPassword: PropTypes.string,
+    setconfirmPassword: PropTypes.func,
+    dob: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    isLoading: PropTypes.bool
+
 }
 
 export default Signup
