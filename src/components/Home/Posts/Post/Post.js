@@ -2,6 +2,7 @@ import React from 'react'
 import { motion, AnimatePresence } from "framer-motion"
 import moment from 'moment'
 import CommentsContainer from './comments/CommentsContainer'
+import PropTypes from 'prop-types'
 
 function Post({ post, postRef, store, handleEdit, handleDelete,
     handleDislike, liked, counter, setComments,
@@ -134,5 +135,53 @@ function Post({ post, postRef, store, handleEdit, handleDelete,
         </div>
     )
 }
+
+Post.propTypes = {
+    post: PropTypes.shape({
+        _id: PropTypes.string,
+        uid: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+        date: PropTypes.string,
+        tags: PropTypes.string,
+        image: PropTypes.arrayOf(PropTypes.string),
+        user: PropTypes.string,
+        userProfilePicture: PropTypes.string,
+        comments: PropTypes.arrayOf(
+            PropTypes.shape(
+                {
+                    comment: PropTypes.string,
+                    user: PropTypes.string,
+                    userProfilePicture: PropTypes.string,
+                    date: PropTypes.string
+                }
+            )
+        )
+    }),
+    store: PropTypes.objectOf(
+        {
+
+        }),
+    handleLike: PropTypes.func,
+    handleEdit: PropTypes.func,
+    handleDelete: PropTypes.func,
+    handleDislike: PropTypes.func,
+    liked: PropTypes.bool,
+    counter: PropTypes.number,
+    setComments: PropTypes.func,
+    setCounter: PropTypes.func,
+    comments: PropTypes.bool,
+    setDetails: PropTypes.func,
+    postRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    commentsRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+
+}
+
 
 export default Post

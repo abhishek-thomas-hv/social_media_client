@@ -1,6 +1,7 @@
 import React from 'react'
 import PostContainer from './Post/PostContainer'
 import { motion } from "framer-motion"
+import PropTypes from 'prop-types'
 
 function Posts({ details, clear, isSending, loaderRef, message, postStore, postsVariants, formRef,
     setDetails, handleFileSubmit, handleSubmit, fileError, fileInput, isActive, postEdit, imageVariant, formVariants }) {
@@ -182,6 +183,62 @@ function Posts({ details, clear, isSending, loaderRef, message, postStore, posts
 
         </>
     )
+}
+
+Posts.propTypes = {
+    details: PropTypes.shape({
+        uid: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+        date: PropTypes.string,
+        tags: PropTypes.string,
+        image: PropTypes.arrayOf(PropTypes.string),
+    }).isRequired,
+    postStore: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string,
+            uid: PropTypes.string,
+            title: PropTypes.string,
+            description: PropTypes.string,
+            date: PropTypes.string,
+            tags: PropTypes.string,
+            image: PropTypes.arrayOf(PropTypes.string),
+            user: PropTypes.string,
+            userProfilePicture: PropTypes.string,
+            comments: PropTypes.arrayOf(
+                PropTypes.shape(
+                    {
+                        comment: PropTypes.string,
+                        user: PropTypes.string,
+                        userProfilePicture: PropTypes.string,
+                        date: PropTypes.string
+                    }
+                )
+            )
+        }).isRequired
+    ),
+    clear: PropTypes.func,
+    isSending: PropTypes.bool,
+    message: PropTypes.string,
+    handleSubmit: PropTypes.func,
+    handleFileSubmit: PropTypes.func,
+    setDetails: PropTypes.func,
+    loaderRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    formRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    fileInput: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    fileError: PropTypes.string,
+    isActive: PropTypes.bool,
+    postEdit: PropTypes.string,
+
 }
 
 export default Posts

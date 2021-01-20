@@ -172,7 +172,16 @@ PostContainer.propTypes = {
     ]),
     post: PropTypes.shape({
         _id: PropTypes.string,
-        comments: PropTypes.array,
+        comments: PropTypes.arrayOf(
+            PropTypes.shape(
+                {
+                    comment: PropTypes.string,
+                    user: PropTypes.string,
+                    userProfilePicture: PropTypes.string,
+                    date: PropTypes.string
+                }
+            )
+        ),
         date: PropTypes.string,
         description: PropTypes.string,
         images: PropTypes.array,

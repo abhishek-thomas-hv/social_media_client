@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 
 function Comments({ handleSubmit, setDetails, details, comments }) {
     return (
@@ -71,6 +72,24 @@ function Comments({ handleSubmit, setDetails, details, comments }) {
 
         </>
     )
+}
+
+
+Comments.propTypes = {
+    comments: PropTypes.arrayOf(PropTypes.shape({
+        comments: PropTypes.string,
+        date: PropTypes.string,
+        user: PropTypes.string,
+        userProfilePicture: PropTypes.string
+    })),
+    handleSubmit: PropTypes.func,
+    details: PropTypes.objectOf({
+        postId: PropTypes.string,
+        text: PropTypes.string,
+        date: PropTypes.string,
+    }),
+    setDetails: PropTypes.func,
+
 }
 
 export default Comments

@@ -1,6 +1,7 @@
 import React from 'react'
 import { AnimateSharedLayout } from "framer-motion"
 import FriendsChild from './FriendsChild';
+import PropTypes from 'prop-types'
 
 function Friends({ option, setOption }) {
     return (
@@ -77,6 +78,12 @@ function Friends({ option, setOption }) {
 
         </div>
     )
+}
+
+
+Friends.propTypes = {
+    setOption: PropTypes.func,
+    option: PropTypes.string,
 }
 
 export default Friends

@@ -8,6 +8,7 @@ import {
 import ProfileContainer from './Profile/ProfileContainer'
 import FriendsContainer from './Friends/FriendsContainer'
 import PostsContainer from './Posts/PostsContainer';
+import PropTypes from 'prop-types';
 
 function MyRouter({ openNav, handleLogout, closeNav }) {
     return (
@@ -78,6 +79,12 @@ function MyRouter({ openNav, handleLogout, closeNav }) {
             </div>
         </Router>
     )
+}
+
+MyRouter.propTypes = {
+    openNav: PropTypes.func.isRequired,
+    closeNav: PropTypes.func.isRequired,
+    handleLogout: PropTypes.func.isRequired,
 }
 
 export default MyRouter

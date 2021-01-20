@@ -36,7 +36,6 @@ function FriendsContainer() {
             <Friends
                 option={option}
                 setOption={setOption}>
-
             </Friends>
 
         </>

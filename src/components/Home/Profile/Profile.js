@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from "framer-motion"
 import EditprofileContainer from './Editprofile/EditprofileContainer'
+import PropTypes from 'prop-types'
 
 function Profile({ profileStore, editProfile, profileRef, setEditProfile, profileVariant, editProfileVariant }) {
     return (
@@ -53,6 +54,45 @@ function Profile({ profileStore, editProfile, profileRef, setEditProfile, profil
 
         </>
     )
+}
+
+Profile.propTypes = {
+    profileStore: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        mobileNumber: PropTypes.string,
+        profilePicture: PropTypes.string,
+        gender: PropTypes.string,
+        dateOfBirth: PropTypes.string,
+        friends: PropTypes.arrayOf(
+            PropTypes.shape({
+                _id: PropTypes.string,
+                uid: PropTypes.string,
+                user: PropTypes.string,
+                userProfilePicture: PropTypes.string,
+                userFriends: PropTypes.arrayOf(PropTypes.string),
+                gender: PropTypes.string,
+                mobileNumber: PropTypes.string
+            })
+        ),
+        friendRequests: PropTypes.arrayOf(
+            PropTypes.shape({
+                _id: PropTypes.string,
+                uid: PropTypes.string,
+                user: PropTypes.string,
+                userProfilePicture: PropTypes.string,
+                userFriends: PropTypes.arrayOf(PropTypes.string),
+                gender: PropTypes.string,
+                mobileNumber: PropTypes.string
+            })
+        ),
+    }).isRequired,
+    profileRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    editProfile: PropTypes.bool,
+    setEditProfile: PropTypes.func
 }
 
 export default Profile

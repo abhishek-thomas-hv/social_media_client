@@ -224,7 +224,7 @@ function FriendsChild({ option }) {
 
 
 FriendsChild.propTypes = {
-    name: PropTypes.string
+    option: PropTypes.string
 }
 
 

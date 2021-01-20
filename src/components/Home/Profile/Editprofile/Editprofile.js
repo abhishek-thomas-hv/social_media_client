@@ -1,5 +1,6 @@
 import React from 'react'
 import FileBase from 'react-file-base64'
+import PropTypes from 'prop-types'
 
 function EditProfile({ details, setDetails, handleSubmit, maleRef, dob, femaleRef, otherRef, isSending, loaderRef, message }) {
     return (
@@ -130,6 +131,43 @@ function EditProfile({ details, setDetails, handleSubmit, maleRef, dob, femaleRe
             </div>
         </div>
     )
+}
+
+EditProfile.propTypes = {
+    details: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        email: PropTypes.string,
+        mobileNumber: PropTypes.string,
+        password: PropTypes.string,
+        profilePicture: PropTypes.string,
+        gender: PropTypes.string,
+        dateOfBirth: PropTypes.string
+    }).isRequired,
+    setDetails: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    maleRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    femaleRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    othereRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    dob: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    loaderRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    ]),
+    isSending: PropTypes.bool,
+    message: PropTypes.string,
 }
 
 export default EditProfile
